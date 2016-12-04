@@ -1,0 +1,1 @@
+mylink := Link (dst=histogramServer, srcd=RosServer, bandwidth="1Gb/s")

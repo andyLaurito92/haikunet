@@ -1,0 +1,2 @@
+class LexicalError < StandardError 
+end

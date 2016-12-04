@@ -1,0 +1,40 @@
+host1 := Host(mac="00:00:00:00:00:01" ip="10.3.0.1" )
+host2 := Host(mac="00:00:00:00:00:02" ip="10.3.0.2" )
+host3 := Host(mac="00:00:00:00:00:03" ip="10.1.1.1" )
+host4 := Host(mac="00:00:00:00:00:04" ip="10.1.1.2" )
+host5 := Host(mac="00:00:00:00:00:05" ip="10.1.2.1" )
+host6 := Host(mac="00:00:00:00:00:06" ip="10.1.2.1" )
+
+
+flow1 := Flow(src=[host2, host3, host4, host5, host6], dst=host1, priority="55")
+flow2 := Flow(src=[host1, host3, host4, host5, host6], dst=host2, priority="55")
+flow3 := Flow(src=[host1, host2, host4, host5, host6], dst=host3, priority="55")
+flow4 := Flow(src=[host1, host2, host3, host5, host6], dst=host4, priority="55")
+flow5 := Flow(src=[host1, host2, host3, host4, host6], dst=host5, priority="55")
+flow6 := Flow(src=[host1, host2, host3, host4, host5], dst=host6, priority="55")
+
+action1 := Action(setDstMac="00:00:00:00:00:01")
+action2 := Action(setDstMac="00:00:00:00:00:02")
+action3 := Action(setDstMac="00:00:00:00:00:03")
+action4 := Action(setDstMac="00:00:00:00:00:04")
+action5 := Action(setDstMac="00:00:00:00:00:05")
+action6 := Action(setDstMac="00:00:00:00:00:06")
+
+Intent intent1
+	Select flow1
+        Action action1
+Intent intent2
+	Select flow2
+        Action action2
+Intent intent3
+	Select flow3
+        Action action3
+Intent intent4
+	Select flow4
+        Action action4
+Intent intent5
+	Select flow5
+        Action action5
+Intent intent6
+	Select flow6
+        Action action6

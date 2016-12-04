@@ -1,0 +1,7 @@
+myFelixServer := Host(mac="00:00:00:00", vlan="-1", ipAddresses=["10.0.0.9"], elementId="of:0000000000000002", port="3")
+myFelixServer:=Host mac="00:00:00:00", vlan="-1", ipAddresses=["10.0.0.9"], elementId="of:0000000000000002", port="3"
+
+myControlFlow := Flow (src=myFelixServer, dst=["10.0.0.2", "10.0.0.3", "10.0.0.4"])
+
+Intent multicastAtlas
+	Select myControlFlow

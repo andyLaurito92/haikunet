@@ -1,0 +1,2 @@
+class SyntacticalError < StandardError 
+end

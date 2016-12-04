@@ -1,0 +1,2 @@
+class OnosCodeGeneratorError < StandardError 
+end

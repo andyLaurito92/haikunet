@@ -1,0 +1,10 @@
+one_host := Host(mac="5E:B5:79:3D:2A:12", vlan="-1", ipAddresses=["10.0.0.10"], elementId="of:0000000000000001", port="3")
+
+second_host := Host(mac="2A:C9:AB:70:ED:9B", vlan="-1", ipAddresses=["10.0.0.11"], elementId="of:0000000000000002", port="3")
+
+third_host := Host(mac="4E:6D:A2:71:18:C9", vlan="-1", ipAddresses=["10.0.0.12"], elementId="of:0000000000000003", port="3")
+
+my_flow := Flow (src=one_host, dst=[second_host,third_host], priority="55")
+
+Intent firstExample
+	Select my_flow

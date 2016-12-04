@@ -1,0 +1,2 @@
+class SemanticalError < StandardError 
+end
