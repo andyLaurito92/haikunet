@@ -1,3 +1,5 @@
+require 'set'
+
 module OnosSemanticRulesChecker
     def hosts_are_well_defined
 
@@ -76,9 +78,9 @@ module OnosSemanticRulesChecker
         sources = obtaining_host_representation_from_identifiers.call sources_identifier
         destinies = obtaining_host_representation_from_identifiers.call destinies_identifier
 
-        sources.each do |one_src|
-            destinies.each do |one_dst|
-                check_if_path_exist_between one_src, one_dst
+        sources.each do |a_source|
+            destinies.each do |a_destiny|
+                raise_semantic_error "there is no path between source #{a_source.mac} and destiny #{a_destiny.mac}." unless (reacheables_elements_from a_source, Set.new).include? a_destiny
             end
         end        
     end
@@ -108,9 +110,14 @@ module OnosSemanticRulesChecker
         return "NONE"
     end
 
-    def check_if_path_exist_between(source, destiny)
-        #The solution could be Disjoint-set !
-        @topology.topology_elements
+    def reacheables_elements_from(network_element, actual_set_of_reacheables)
+        return unless network_element #There are some networks elements that can be nil
+        return if actual_set_of_reacheables.include? network_element.id #This means we have already include the elements that we can reach from here!
+        actual_set_of_reacheables.add network_element.id
+        network_element.out_elements.each do |reacheable_network_element|
+            reacheables_elements_from reacheable_network_element, actual_set_of_reacheables
+        end
+        actual_set_of_reacheables
     end
 
     def define_host_identifier_in_topology(host_identifier)
