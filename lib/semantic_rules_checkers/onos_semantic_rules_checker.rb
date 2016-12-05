@@ -109,7 +109,8 @@ module OnosSemanticRulesChecker
     end
 
     def check_if_path_exist_between(source, destiny)
-        
+        #The solution could be Disjoint-set !
+        @topology.topology_elements
     end
 
     def define_host_identifier_in_topology(host_identifier)
