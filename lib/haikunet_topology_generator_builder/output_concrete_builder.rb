@@ -25,7 +25,7 @@ module OutputConcreteBuilder
         get_topology_function_def += add_elements_of_type graph_elements, Router
         get_topology_function_def += add_elements_of_type graph_elements, Link
 
-        get_topology_function_def +="      @topology.topology_elements \n "
+        get_topology_function_def +="      @topology \n "
         get_topology_function_def +="   end \n"
 
         get_path_definition_function_def = "    def get_path_between(source, destination) \n"

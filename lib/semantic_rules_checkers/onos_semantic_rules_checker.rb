@@ -1,21 +1,4 @@
-require "ipaddress"
-require_relative 'utils/custom_file_utils.rb'
-
-class SemanticRulesChecker
-    def check(context, topology_provider)
-        @context = context
-        @topology_provider = topology_provider
-        @topology = @topology_provider.initial_topology
-
-        hosts_are_well_defined
-
-        flows_are_well_defined
-
-        values_defined_in_flows_are_defined_in_topology
-
-        paths_for_flows_exists
-    end
-
+module OnosSemanticRulesChecker
     def hosts_are_well_defined
 
     end
@@ -25,13 +8,11 @@ class SemanticRulesChecker
     end
 
     def values_defined_in_flows_are_defined_in_topology
-        hosts_in_topology = @topology.select{ |elem| elem.is_a? Host }
+        hosts_in_topology = @topology.elements_of_type Host
         flows_identifiers_defined = @context['identifiers'].select{ |identifier| identifier.value.is_a? HaikunetFlow }
 
         #If a HaikunetHost is used as parameter of the flow, then semantically is well 
-        #constructed, since if the Host is not defined, it will be constructed first. (At this step 
-        #we know that if the HaikunetHost is defined, then its already defined in some part
-        #of the program)
+        #constructed, since if the Host is not defined, it will be constructed first. 
 
         identifiers_in_flow_parameters = flows_parameters_of_type flows_identifiers_defined, String 
 
@@ -97,30 +78,25 @@ class SemanticRulesChecker
 
         sources.each do |one_src|
             destinies.each do |one_dst|
-                path = @topology_provider.source_provider.get_path_between one_src, one_dst
-                raise_semantic_error "there is no path between the source with mac #{one_src.mac} and the destiny with mac #{one_dst.mac}" if path.links.size == 0
+                check_if_path_exist_between one_src, one_dst
             end
         end        
     end
 
     def obtain_host_topology_representation_of(host_identifier)
-        hosts_in_topology = @topology.select{ |elem| elem.is_a? Host }
+        hosts_in_topology = @topology.elements_of_type Host
         #A host_identifier can be either a property of the host in the topology, or a HaikunetHostIdentifier or an Array!. 
         #In this second case, it can happens that the host is not defined in the initial topology!.
         if host_identifier.is_a? HaikunetIdentifier
-            mac_value = host_identifier.value.params.select{ |param| param.name == 'mac' }.first.value
+            mac_value = host_value_of host_identifier, 'mac'
             hosts_in_topology.each do |host|
                 return host if host.mac == mac_value
             end
             #If we are here, then it means that the host is not defined in the actual topology!. This means that
-            #we have first to define it in the topology, and afterwards check if there is a path between him and
-            #the destiny.
-
-            #TODO: Implement the semantic check for hosts that are not yet defined in the topology. Probably the 
-            #topology of the topologygenerator gem will have to be more intelligent (transform it to a graph would 
-            #be the best solution I think).
-
-        elsif host_identifier.is_a? String #Is a property of a host 
+            #we have first to define it in the topology whith it's link.
+            return define_host_identifier_in_topology host_identifier
+        #Is a property of a host     
+        elsif host_identifier.is_a? String 
             if IPAddress.valid? host_identifier
                 return hosts_in_topology.select{ |host| host.ips.include? host_identifier }.first
             elsif MacAddress.valid? host_identifier
@@ -132,7 +108,36 @@ class SemanticRulesChecker
         return "NONE"
     end
 
-    def raise_semantic_error(message)
-        raise SemanticalError, "A semantic error was found in one of the flow definitions. The problem is that #{message}\n Please correct this error in order to run the program ;)."
+    def check_if_path_exist_between(source, destiny)
+        
+    end
+
+    def define_host_identifier_in_topology(host_identifier)
+        mac_value = host_value_of host_identifier, 'mac'
+        ips_value = host_value_of host_identifier, 'ipAddresses'
+        vlan_value = host_value_of host_identifier, 'vlan'
+        element_id_value = host_value_of host_identifier, 'elementId'
+        port_value = host_value_of host_identifier, 'port'
+        my_host = @topology.add_host "#{mac_value}/#{vlan_value}", ips_value, mac_value
+
+        switch = @topology.get_element_by_id element_id_value
+        raise_semantic_error "the switch #{element_id_value} is not defined in the initial topology!." unless switch
+
+        @topology.add_link  "Link#{mac_value.gsub ':', ''}_to_#{element_id_value.gsub ':', ''}", 
+                            my_host, 
+                            0,
+                            element_id_value,
+                            port_value.to_i
+
+        @topology.add_link  "Link##{element_id_value.gsub ':', ''}_to_{mac_value.gsub ':', ''}", 
+                            element_id_value, 
+                            port_value.to_i,
+                            my_host,
+                            0                            
+        my_host
+    end
+
+    def host_value_of(host_identifier, proerty)
+        host_identifier.value.params.select{ |param| param.name == proerty }.first.value
     end
 end
