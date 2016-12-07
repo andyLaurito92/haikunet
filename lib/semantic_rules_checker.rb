@@ -95,7 +95,7 @@ class SemanticRulesChecker
 
         sources.each do |a_source|
             destinies.each do |a_destiny|
-                raise_semantic_error "there is no path between source #{a_source.mac} and destiny #{a_destiny.mac}." unless (reacheables_elements_from a_source, Set.new).include? a_destiny
+                raise_semantic_error "there is no path between source #{a_source.mac} and destiny #{a_destiny.mac}." unless (reacheables_elements_from a_source, Set.new).include? a_destiny.id
             end
         end        
     end
