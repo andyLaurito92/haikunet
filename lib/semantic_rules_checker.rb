@@ -1,6 +1,21 @@
+require "ipaddress"
 require 'set'
+require_relative 'utils/custom_file_utils.rb'
 
-module OnosSemanticRulesChecker
+class SemanticRulesChecker
+    def check(context, topology)
+        @context = context
+        @topology = topology
+
+        hosts_are_well_defined
+
+        flows_are_well_defined
+
+        values_defined_in_flows_are_defined_in_topology
+
+        paths_for_flows_exists
+    end
+
     def hosts_are_well_defined
 
     end
@@ -131,21 +146,20 @@ module OnosSemanticRulesChecker
         switch = @topology.get_element_by_id element_id_value
         raise_semantic_error "the switch #{element_id_value} is not defined in the initial topology!." unless switch
 
-        @topology.add_link  "Link#{mac_value.gsub ':', ''}_to_#{element_id_value.gsub ':', ''}", 
-                            my_host, 
-                            0,
-                            element_id_value,
-                            port_value.to_i
+        @topology.add_full_duplex_link  "Link#{mac_value.gsub ':', ''}_to_#{element_id_value.gsub ':', ''}", 
+                                        my_host, 
+                                        0,
+                                        element_id_value,
+                                        port_value.to_i
 
-        @topology.add_link  "Link##{element_id_value.gsub ':', ''}_to_{mac_value.gsub ':', ''}", 
-                            element_id_value, 
-                            port_value.to_i,
-                            my_host,
-                            0                            
         my_host
     end
 
     def host_value_of(host_identifier, proerty)
         host_identifier.value.params.select{ |param| param.name == proerty }.first.value
+    end
+
+    def raise_semantic_error(message)
+        raise SemanticalError, "A semantic error was found in one of the flow definitions. The problem is that #{message}\n Please correct this error in order to run the program ;)."
     end
 end

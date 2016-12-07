@@ -2,6 +2,9 @@ require 'commander'
 require 'uri'
 
 class CommandLineArguments
+    DESTINIES_ALLOWED = ['OPENDAYLIGHT', 'ONOS', 'DEBUG']
+    HAIKUNET_FILE_EXTENSION = '.hk'
+
     include Commander::Methods
 
     attr_reader :file_name, :destiny_name, :uri_initial_topo
@@ -30,9 +33,9 @@ class CommandLineArguments
             @uri_initial_topo = options.uriInitialTopo
             raise ArgumentError, "The file #{@file_name} does not exist. Please check that you provide the correct path." unless File.file?(@file_name)
             raise ArgumentError, "The destiny #{@destiny_name} was not provided. Please select one of the currently supported (haikunet --help to see currently suported destinies)." unless @destiny_name
-            raise ArgumentError, "The destiny provided was #{destiny_name} which is not one of the supported by Haikunet. Please select one of the currently supported (haikunet --help to see currently suported destinies)." unless ['OPENDAYLIGHT', 'ONOS', 'DEVS'].include? @destiny_name
+            raise ArgumentError, "The destiny provided was #{destiny_name} which is not one of the supported by Haikunet. Please select one of the currently supported (haikunet --help to see currently suported destinies)." unless DESTINIES_ALLOWED.include? @destiny_name
             raise ArgumentError, "The uriInitialTopo provided #{@uriInitialTopo} is not a valid one." unless (File.exists? @uri_initial_topo) || @uri_initial_topo =~ /\A#{URI::regexp(['http', 'https'])}\z/
-            raise ArgumentError, "The interpreter only accepts files with the extension .hk, file name provided was #{@file_name}" unless ['.hk'].include? File.extname(@file_name)
+            raise ArgumentError, "The interpreter only accepts files with the extension .hk, file name provided was #{@file_name}" unless [HAIKUNET_FILE_EXTENSION].include? File.extname(@file_name)
           end
         end
 
