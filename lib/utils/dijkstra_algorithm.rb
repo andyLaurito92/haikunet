@@ -1,6 +1,13 @@
 class Dijkstra
   
-  def initialize(start_host, end_host, matrix_of_road)
+  #I'm expecting my graph as a matrix of 
+  #[
+  #   ....
+  #   [node_i, node_j, weight] 
+  #   ....
+  #]
+  #
+  def initialize(start_host, end_host, graph_structure)
     @start = start_host
     @end = end_host
 
@@ -8,10 +15,9 @@ class Dijkstra
 
     @infinit = Float::INFINITY
 
-    vertices = number_of_vertices(matrix_of_road.dup)
-    matrix_of_road =  matrix_of_road.unshift [vertices]
+    graph_structure =  graph_structure.unshift [number_of_vertices(graph_structure.dup)]
 
-    read_and_init matrix_of_road
+    read_and_init graph_structure
 
     get_shortests_path_per_vertex
   end
