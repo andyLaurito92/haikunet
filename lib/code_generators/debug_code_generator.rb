@@ -1,4 +1,6 @@
 module DebugCodeGenerator
+    require_relative "#{File.dirname(File.realpath(__FILE__))}/../utils/dijkstra_algorithm.rb"
+
     #For debugging we use DEVS 
     K = 1000
     FLOW_DEFAULT_PRIORITY = 0
@@ -30,7 +32,7 @@ module DebugCodeGenerator
                   flow_params['dst'].each do |dst_mac|
                     @initial_topology.add_flow  "Flow#{src_mac}_#{dst_mac}", 
                                         FLOW_DEFAULT_PRIORITY, 
-                                        [],#[(find_path_between src_mac, dst_mac)], 
+                                        [(find_path_between src_mac, dst_mac)], 
                                         FLOW_DEFAULT_GENERATION_PERIOD, 
                                         FLOW_DEFAULT_GENERATION_SIZE
                   end
@@ -79,7 +81,28 @@ module DebugCodeGenerator
     end
 
     def find_path_between(src_mac, dst_mac)
+        links = @initial_topology.elements_of_type Link
+        hosts = @initial_topology.elements_of_type Host
 
+        graph = []
+        links.each do |link|
+            graph.push [link.src_element,link.dst_element,1]
+        end
+
+        src = hosts.find { |host| host.mac == src_mac }
+        dst = hosts.find { |host| host.mac == dst_mac }
+
+        solution = Dijkstra.new src, dst, graph
+        path = solution.shortest_path
+
+        #Now we have to find the link that connects both elements to add it to the path!
+        my_path = Path.new src, dst
+        path.each_with_index do |elem, index|
+            break if path.size == (index + 1)
+            my_path.add_link links.find{ |link| (link.src_element == elem) && (link.dst_element == path[index+1]) }
+        end
+        
+        my_path
     end
 
     def value_from(value_name, array)
