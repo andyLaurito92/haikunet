@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<book version='5.0-subset Scilab' xml:lang='en_US' xmlns='http://docbook.org/ns/docbook' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:xi='http://www.w3.org/2001/XInclude' xmlns:svg='http://www.w3.org/2000/svg' xmlns:mml='http://www.w3.org/1998/Math/MathML' xmlns:html='http://www.w3.org/1999/xhtml' xmlns:db='http://docbook.org/ns/docbook'>
+  <info xml:id='tcp_udp_backdoor_manual'>
+    <title>TCP/UDP Backdoor</title>
+  </info>
+
+<part xml:id='section_8f8e44049d4dea7ea87668be07040ea2'>
+<title>TCP/UDP Backdoor</title>
+
+
+<refentry version='5.0-subset Scilab' xml:id='c_sub' xml:lang='en' xmlns='http://docbook.org/ns/docbook' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svg='http://www.w3.org/2000/svg' xmlns:ns3='http://www.w3.org/1999/xhtml' xmlns:mml='http://www.w3.org/1998/Math/MathML' xmlns:db='http://docbook.org/ns/docbook'>
+  <info>
+    <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (mer., 26 mars 2008)
+    $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>c_sub</refname>
+
+    <refpurpose>substraction from C</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+
+    <synopsis>a = c_sub(b,c)</synopsis>
+  </refsynopsisdiv>
+
+  <refsection>
+    <title>Description</title>
+
+    <para>Do a substraction.</para>
+
+    <para>Add here a paragraph of the function description </para>
+  </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role='example'>c_sub(3,4)</programlisting>
+  </refsection>
+
+  <refsection>
+    <title>Authors</title>
+
+    <simplelist type='vert'>
+      <member>Allan CORNET</member>
+    </simplelist>
+  </refsection>
+</refentry>
+
+
+
+<refentry version='5.0-subset Scilab' xml:id='c_sum' xml:lang='en' xmlns='http://docbook.org/ns/docbook' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svg='http://www.w3.org/2000/svg' xmlns:ns3='http://www.w3.org/1999/xhtml' xmlns:mml='http://www.w3.org/1998/Math/MathML' xmlns:db='http://docbook.org/ns/docbook'>
+  <info>
+    <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (mer., 26 mars 2008)
+    $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>c_sum</refname>
+
+    <refpurpose>sum from C</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+
+    <synopsis>a = c_sum(b,c)</synopsis>
+  </refsynopsisdiv>
+
+  <refsection>
+    <title>Description</title>
+
+    <para>Do a sum.</para>
+
+    <para>Add here a paragraph of the function description </para>
+  </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role='example'>c_sum(3,4)</programlisting>
+  </refsection>
+
+  <refsection>
+    <title>Authors</title>
+
+    <simplelist type='vert'>
+      <member>Allan CORNET</member>
+    </simplelist>
+  </refsection>
+</refentry>
+
+
+
+<refentry version='5.0-subset Scilab' xml:id='fortran_sum' xml:lang='en' xmlns='http://docbook.org/ns/docbook' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svg='http://www.w3.org/2000/svg' xmlns:ns3='http://www.w3.org/1999/xhtml' xmlns:mml='http://www.w3.org/1998/Math/MathML' xmlns:db='http://docbook.org/ns/docbook'>
+  <info>
+    <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (mer., 26 mars 2008)
+    $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>fortran_sum</refname>
+
+    <refpurpose>sum from fortran</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+
+    <synopsis>a = c_sum(b,c)</synopsis>
+  </refsynopsisdiv>
+
+  <refsection>
+    <title>Description</title>
+
+    <para>Do a sum.</para>
+
+    <para>Add here a paragraph of the function description</para>
+  </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role='example'>fortran_sum(3,4)</programlisting>
+  </refsection>
+
+  <refsection>
+    <title>Authors</title>
+
+    <simplelist type='vert'>
+      <member>Allan CORNET</member>
+    </simplelist>
+  </refsection>
+</refentry>
+
+
+
+<refentry version='5.0-subset Scilab' xml:id='scilab_sum' xml:lang='en' xmlns='http://docbook.org/ns/docbook' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svg='http://www.w3.org/2000/svg' xmlns:ns3='http://www.w3.org/1999/xhtml' xmlns:mml='http://www.w3.org/1998/Math/MathML' xmlns:db='http://docbook.org/ns/docbook'>
+  <info>
+    <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (mer., 26 mars 2008)
+    $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>scilab_sum</refname>
+
+    <refpurpose>sum from scilab</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+
+    <synopsis>a = scilab_sum(b,c)</synopsis>
+  </refsynopsisdiv>
+
+  <refsection>
+    <title>Description</title>
+
+    <para>Do a sum.</para>
+
+    <para>Add here a paragraph of the function description </para>
+  </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role='example'>scilab_sum(3,4)</programlisting>
+  </refsection>
+
+  <refsection>
+    <title>Authors</title>
+
+    <simplelist type='vert'>
+      <member>Allan CORNET</member>
+    </simplelist>
+  </refsection>
+</refentry>
+
+</part>
+</book>

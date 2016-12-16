@@ -1,0 +1,26 @@
+Toolbox: backdoor
+
+Title: BackDoor
+
+Summary: Opens a backdoor into Scilab workspaces
+
+Version: 0.1
+
+Author: Federico Bergero <fbergero@fceia.unr.edu.ar>
+
+Maintainer: Federico Bergero <fbergero@fceia.unr.edu.ar>
+
+Category: utility
+ 
+Entity: CIFASIS-CONICET - Argentina
+
+WebSite: 
+
+License: GPL
+
+ScilabVersion: >= 5.2
+
+Depends: 
+
+Date: 2010-04-26
+

@@ -1,0 +1,17 @@
+# Stuff needed for BOOST unit test framework (compiling using CERN's boost libraries as those are the ones available in the servers)
+#LIBS +=   -lboost_unit_test_framework-gcc48-mt-1_53   # required for unit tests -lboost_unit_test_framework
+
+OPTFLAGS = -Og -g 
+
+# in order to produce the test executable
+$(TEST_PATH)/main.o:
+
+$(TEST): $(MODEL) $(TEST_PATH)/* $(TEST_PATH)/PowerDEVSTestFramework/* $(TEST_PATH)/main.cpp      
+	$(CXX) $(USERCXXFLAGS) $(USERINCLUDES) $(CXXFLAGS) $(INCLUDES)  $(BUILDOBJ)/*.o  $(TEST_PATH)/main.cpp $(LIBS) $(USERLIBS) -o $(TEST)
+	
+$(BUILDOBJ)/WRRScheduler.o: $(ATOMICS)/PhaseI/WRRScheduler.cpp $(ATOMICS)/PhaseI/WRRScheduler.h  $(ATOMICS)/vector $(ATOMICS)/sinks/ParameterReader.h $(ATOMICS)/sinks/Loggers/IPowerDEVSLogger.h $(ATOMICS)/vector/VectorialEvent.h $(ATOMICS)/common/BaseSimulator.h
+	$(CXX) -c $(CXXFLAGS) $(USERCXXFLAGS) $(USERINCLUDES) $(INCLUDES) $(ATOMICS)/PhaseI/WRRScheduler.cpp -o $(BUILDOBJ)/WRRScheduler.o 
+	
+$(TEST_PATH)/RouterTest.o: 	$(ATOMICS)/PhaseI/Router.cpp $(ATOMICS)/PhaseI/Router.h $(ATOMICS)/PhaseI/NetworkData/GlobalFlowBasedRoutingTable.cpp $(ATOMICS)/PhaseI/NetworkData/GlobalFlowBasedRoutingTable.h
+	$(CXX) -c $(CXXFLAGS) $(USERCXXFLAGS) $(USERINCLUDES) $(INCLUDES) $(ATOMICS)/PhaseI/RouterTest.cpp -o $(BUILDOBJ)/RouterTest.o
+

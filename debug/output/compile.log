@@ -1,0 +1,13 @@
+In file included from ../atomics/PhaseI/Vector_NetworkQueueWithSizeOutput.h:14:0,
+                 from ../build/model.h:11,
+                 from ../engine/model.cpp:24:
+../atomics/vector/VectorialModel.h: In instantiation of ‘void VectorialModel<T>::init(double, ...) [with T = NetworkQueueWithSizeOutput]’:
+../engine/model.cpp:403:1:   required from here
+../atomics/vector/VectorialModel.h:95:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (uint j = 0; j < this->getParameterCount(); j++) {
+                       ^
+../atomics/vector/VectorialModel.h:96:11: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+     if (i < scalarParameters[j].size()) {
+           ^
+../build/objs/ScilabLogger.o: In function `ScilabLogger::ScilabLogger(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool)':
+ScilabLogger.cpp:(.text+0x2d5): warning: the use of `tmpnam' is dangerous, better use `mkstemp'

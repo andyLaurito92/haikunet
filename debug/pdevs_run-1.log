@@ -1,0 +1,219 @@
+SamplerLogger::initSignals: Trying to initialize sampler for model someName with 3 variables. Each sampler can only sample 1 variable at a time. 
+Error Parsing parameters: parameter 'someName.count.sample_period' NOT FOUND
+Error Parsing parameters: parameter 'someName.count.sample_period' NOT FOUND
+Error Parsing parameters: parameter 'count.sample_period' NOT FOUND
+SamplerLogger::initSignals: Sampler failed to retrieve a positive sampling period. Variable 'count.sample_period' was not correctly set in configuration for model 'someName'. 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 2.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 1.000000 
+SamplerLogger::initSignals: model.variable: someName.count ;  samplePeriod: 0.010000 
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+[0.000000] WRRScheduler_init: Wrong configuration. Number weights does not match number of queues. There were 8 queues configured and 6 weights 
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+[0.000000] WRRScheduler_ext: a dequeue request arrived before the previous one has been sent 
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.sum_queue_sizes_bytes.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'WRRScheduler.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+[1.000000] Router_ext: received packet #4 with flow 'TestFlow1' which has not configured output port in this device (see GlobalFlowBasedRoutingTable). 
+ Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'Router.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'ReproducibleSimu' NOT FOUND
+No configuration for STDEVS instance. Using the default one 
+Configuration STDEVS set to STDEVS::StDevsUniqueGenerationInstance 
+STDEVS was Created 
+time 1480957484 
+STDEVS randseed received -1 
+creating STDEVS instance that will create new random values in every simulations. This simulation seed=16946882 
+STDEVS randseed calculated 16946882 
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.count_lar_felix_0_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.count_lar_felix_1_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.intergen_lar_felix_0_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.intergen_lar_felix_1_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.sent_bits_lar_felix_0_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.sent_bits_lar_felix_1_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'debugLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.count_lar_felix_0_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.count_lar_felix_1_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.count_lar_felix_2_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.intergen_lar_felix_0_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.intergen_lar_felix_1_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.intergen_lar_felix_2_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.sent_bits_lar_felix_0_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.sent_bits_lar_felix_1_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.sent_bits_lar_felix_2_FlowID.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'lar_felix_0.GeneratorApplication.logLevel' NOT FOUND
+Error Parsing parameters: parameter 'logLevel' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_period' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_mode' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_period_mu' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_size_bytes' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_buffer_bytes' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_timeout' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_out_size_bytes' NOT FOUND
+Error Parsing parameters: parameter 'felix_dist_size_bytes_value' NOT FOUND

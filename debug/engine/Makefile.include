@@ -1,0 +1,98 @@
+UNAME = $(shell uname)
+
+####### WINDOWS ############
+ifeq ($(UNAME), Windows)
+OPTFLAGS = -O3
+CXXFLAGS = -Wall $(OPTFLAGS) -D__WINDOWS__ -std=c++11
+ATOMICS = ..\atomics
+SRCENGINE = ..\engine
+BUILD = ..\build
+BUILDOBJ = ..\build\objs
+BUILDLIB = ..\build\lib
+OUTPUT = ..\output
+GSLLIB = /usr/lib
+GSLINC = /usr/include/gsl
+MODEL = $(OUTPUT)\model.exe
+RM = del
+MV = copy 
+OBJS = $(BUILDOBJ)\*.o
+LIBS = -lsimpd -lws2_32 -lgsl -L$(GSLLIB)
+INCLUDES = -I$(SRCENGINE) -I$(ATOMICS) -I$(BUILD) -L$(BUILDLIB) -I$(GSLINC)
+all : $(BUILDLIB)/libsimpd.a $(MODEL)
+clean:
+	$(RM) /q /s  $(OBJS) $(MODEL)
+endif
+
+####### LINUX ############
+ifeq ($(UNAME), Linux)
+#OPTFLAGS = -march=native -O3
+OPTFLAGS = -O3
+#OPTFLAGS = -O2 -g 
+#OPTFLAGS = -g -ggdb3 # -Q  debugging full info
+OPTFLAGS += -fmax-errors=3   # error levels
+CXXFLAGS =  -Wall $(OPTFLAGS) -DO_BINARY=0  -std=c++11
+ATOMICS = ../atomics
+SRCENGINE = ../engine
+BUILD = ../build
+BUILDOBJ = ../build/objs
+BUILDLIB = ../build/lib
+OUTPUT = ../output
+GSLLIB = /home/alaurito/dev/lib
+GSLINC = /home/alaurito/dev/include
+LIBS = -lsimpd -lgsl -L$(GSLLIB) -lgslcblas
+RM = rm
+MV = mv
+OBJS = $(BUILDOBJ)/*.o
+MODEL = $(OUTPUT)/model
+
+TEST = $(OUTPUT)/test
+TEST_PATH = $(ATOMICS)/unitTest
+
+INCLUDES = -I$(SRCENGINE) -I$(ATOMICS) -I$(BUILD) -L$(BUILDLIB) -I$(GSLINC) 
+
+# Stuff needed for BOOST (compiling using CERN's boost libraries as those are the ones available in the servers)
+# To be able to execute remember to add the path to the ldconfig: sudo echo "<boostLibPath>" > /etc/ld.so.conf.d/libboost.conf
+# ASIO requieres boost.version > 1.47
+INCLUDES += -I/usr/include/boost	#INCLUDES += -isystem/afs/cern.ch/sw/lcg/external/Boost/1.53.0_python2.7/x86_64-slc6-gcc48-opt/include/boost-1_53/   
+LIBS += -L/usr/lib/x86_64-linux-gnu/	#LIBS += -L/afs/cern.ch/sw/lcg/external/Boost/1.53.0_python2.7/x86_64-slc6-gcc48-opt/lib
+CXXFLAGS += -pthread # required by boost posix threads (like the openTSDB client)
+LIBS +=   -lboost_system   # required for OpenTsdb connection (for sockets) -lboost_system
+LIBS += -lboost_program_options # required for parsing command line options -lboost_program_options
+#OPTFLAGS += -Wno-unused-local-typedefs 
+
+# JSON parser/generator used for openTSDBHttp client
+INCLUDES += -I$(BUILD)/include  #remember to put the rapidjson folder in the PD/build/include directory.
+
+all : $(BUILDLIB)/libsimpd.a $(MODEL)	
+	if test -f $(OUTPUT)/debug; then make clean;make;fi
+clean:
+	$(RM) -rf $(OBJS) $(MODEL) $(TEST) $(OUTPUT)/debug
+test:  $(BUILDLIB)/libsimpd.a $(TEST)	
+
+debug: OPTFLAGS = -g -ggdb3 # -Q  debugging full info
+debug: all
+	
+endif
+
+$(BUILDOBJ)/connection.o: $(SRCENGINE)/connection.cpp $(SRCENGINE)/connection.h
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $(SRCENGINE)/connection.cpp -o $(BUILDOBJ)/connection.o
+$(BUILDOBJ)/coupling.o: $(SRCENGINE)/coupling.cpp $(SRCENGINE)/coupling.h
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $(SRCENGINE)/coupling.cpp -o $(BUILDOBJ)/coupling.o
+$(BUILDOBJ)/event.o: $(SRCENGINE)/event.cpp $(SRCENGINE)/event.h
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $(SRCENGINE)/event.cpp -o $(BUILDOBJ)/event.o
+$(BUILDOBJ)/root_coupling.o: $(SRCENGINE)/root_coupling.cpp $(SRCENGINE)/root_coupling.h
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $(SRCENGINE)/root_coupling.cpp -o $(BUILDOBJ)/root_coupling.o
+$(BUILDOBJ)/root_simulator.o: $(SRCENGINE)/root_simulator.cpp $(SRCENGINE)/root_simulator.h
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c  $(SRCENGINE)/root_simulator.cpp -o $(BUILDOBJ)/root_simulator.o
+$(BUILDOBJ)/simulator.o: $(SRCENGINE)/simulator.cpp $(SRCENGINE)/simulator.h
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c  $(SRCENGINE)/simulator.cpp -o $(BUILDOBJ)/simulator.o
+$(BUILDOBJ)/pdevslib.o:	$(SRCENGINE)/pdevslib.h	$(SRCENGINE)/pdevslib.cpp $(SRCENGINE)/pdevslib.linux.cpp $(SRCENGINE)/pdevslib.win.cpp $(SRCENGINE)/pdevslib.rtai.cpp $(SRCENGINE)/pdevslib.common.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c  $(SRCENGINE)/pdevslib.cpp -o $(BUILDOBJ)/pdevslib.o
+$(BUILDLIB)/libsimpd.a:	$(BUILDOBJ)/connection.o $(BUILDOBJ)/coupling.o $(BUILDOBJ)/event.o $(BUILDOBJ)/root_coupling.o $(BUILDOBJ)/root_simulator.o $(BUILDOBJ)/simulator.o $(BUILDOBJ)/pdevslib.o
+	$(AR) rvs $(BUILDLIB)/libsimpd.a $(BUILDOBJ)/connection.o $(BUILDOBJ)/coupling.o $(BUILDOBJ)/event.o $(BUILDOBJ)/root_coupling.o $(BUILDOBJ)/root_simulator.o $(BUILDOBJ)/simulator.o $(BUILDOBJ)/pdevslib.o
+include $(BUILD)/Makefile.include
+
+# include tests conditionally
+ifeq ($(MAKECMDGOALS), test)
+	include $(TEST_PATH)/Makefile.include
+endif

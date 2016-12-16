@@ -1,0 +1,7 @@
+version 0.1
+ The modules has basic functionality but it has some issues still:
+	* The module is not thread-safe, meaning that if Scilab is doing someting else (like running another script) and the module tries to access a Scilab variable
+	the module and Scilab will probably crash.
+	* The module is not always returning the right anwser. Sometimes the ans var is not defined. 
+	* UDP support is still not implemented
+  * Windows version is not yet done

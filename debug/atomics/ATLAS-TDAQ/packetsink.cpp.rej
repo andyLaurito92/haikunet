@@ -1,0 +1,19 @@
+--- atomics/ATLAS-TDAQ/packetsink.cpp
++++ atomics/ATLAS-TDAQ/packetsink.cpp
+@@ -17,7 +17,7 @@
+        counter = 0;
+ 
+        myLoggerToScilab = new aLoggerToScilab(SCILAB_LOG_LEVEL_IMPORTANT, this->myself, this->getName(), false);
+-       myLoggerToScilab->initSignals(11, "eventId", "arrived", "packetLatency", "roundTripLatency", "evBuiltLatency", "L2Latency", "l2ProcTime", "puId", "dcmId", "rackId", "eventSize");
++       myLoggerToScilab->initSignals(12, "eventId", "arrived", "packetLatency", "roundTripLatency", "evBuiltLatency", "L2Latency", "l2ProcTime", "puId", "dcmId", "rackId", "eventSize", "birthTime");
+ 
+        return;
+ }
+@@ -34,6 +34,7 @@
+        counter++;
+        myLoggerToScilab->logSignal(t, (double) counter, "arrived");
+        myLoggerToScilab->logSignal(t, t - arrivedPacket->birthTime, "packetLatency");
++       myLoggerToScilab->logSignal(t, arrivedPacket->birthTime, "birthTime");
+ 
+        // every 50 packets print a message to the log to be able to keep track during simulation
+        if(counter % 50 == 0){
