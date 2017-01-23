@@ -48,3 +48,6 @@ bundler install
 
 cd ../
 rm download_directory.sh # Deleting the script used for downloading the whole project
+
+cd 
+source .bashrc
