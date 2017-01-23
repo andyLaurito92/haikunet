@@ -11,4 +11,4 @@ rm master.tar.gz
 rm master.tar.gz.1
 
 cd haikunet
-install_haikunet.sh
+./install_haikunet.sh
