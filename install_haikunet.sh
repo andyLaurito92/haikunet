@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/bah
 
 #Installation script for UBUNTU
 
-#We install rvm if not installed
-RVM_INSTALLED=$(which rvm)
-if [ -z "${RVM_INSTALLED// }" ]
+RUBY_INSTALLED=$(which ruby)
+if [ -z "${RUBY_VERSION// }" ]
  then
+
     #installation and configuration of rvm
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
@@ -22,22 +22,19 @@ if [ -z "${RVM_INSTALLED// }" ]
     source /usr/local/rvm/scripts/rvm
     source ~/.bashrc
     rvmsudo rvm get stable 
-fi
 
-#installing ruby
-rvm install 2.3
-rvm use 2.3
+    #installing ruby
+    rvm install 2.3
+    rvm use 2.3
+fi
 
 #Installation and configuration steps for haikunet
 
-#First we create the binary in order to be run from console
+#Add directory to $PATH
 HAIKUNET_DIRECTORY=$(pwd)
-if [[ $EUID -ne 0 ]]; then
-	sudo ln -s "$HAIKUNET_DIRECTORY/lib/haikunet.rb" /usr/bin/haikunet
-else
-	ln -s "$HAIKUNET_DIRECTORY/lib/haikunet.rb" /usr/bin/haikunet
-fi
+echo "export PATH=\"$PATH:$HAIKUNET_DIRECTORY/lib\" # Adding Haikunet to your PATH variable" >> ~/.bashrc
 
+#Install gems 
 gem install bundler
 
 #Second, we install bundler if not installed
