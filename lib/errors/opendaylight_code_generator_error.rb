@@ -1,0 +1,2 @@
+class OpendaylightCodeGeneratorError < StandardError 
+end
