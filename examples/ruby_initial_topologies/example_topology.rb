@@ -6,14 +6,14 @@ http://asciiflow.com
 +---------+                  +----------+
 |         |                  |          |
 |         |                  |          |
-|  Host 0 |                  |          |
-|         |                  |Host 1    |
+|  Host 1 |                  |          |
+|         |                  |Host 2    |
 +--------++                  +----+-----+
          |                        |
          |   +-----------+        |
          |   |           |        |
          +---+           +--------+
-             |Router 0   |
+             |of:0000000000000001   |
              |           |
              +------+----+
                     |
@@ -23,7 +23,7 @@ http://asciiflow.com
             +-------+-----+
             |             |
             |             |
-            |  Host 2     |
+            |  Host 3     |
             |             |
             +-------------+
    
@@ -37,11 +37,11 @@ module NetworkTopology
         routers = []
         hosts = []
 
-        router = @topology.add_router "MyRouter1"
+        router = @topology.add_router "of:0000000000000001"
         routers.push router
 
-        for i in 0..2  
-          host = @topology.add_host "Host#{i}"
+        for i in 1..3  
+          host = @topology.add_host "Host#{i}", "10.0.0.#{i}"
           hosts.push host     
         end
 
@@ -56,33 +56,6 @@ module NetworkTopology
 
         link5 = @topology.add_link "Link5", routers[0], 1, hosts[0], 0
         link6 = @topology.add_link "Link6", routers[0], 2, hosts[1], 0
-
-        flow_1_path = Path.new hosts[0], hosts[2]
-        flow_1_path.add_link link1
-        flow_1_path.add_link link3
-        @topology.add_flow "Flow1", 
-                            10, 
-                            flow_1_path, 
-                            (ExponentialDistribution.new 1.0/6875), 
-                            (ConstantDistribution.new 1000*8)
-
-        flow_2_path = Path.new hosts[1], hosts[2]
-        flow_2_path.add_link link2
-        flow_2_path.add_link link3
-        @topology.add_flow "Flow2", 
-                            15, 
-                            flow_2_path, 
-                            (ExponentialDistribution.new 1.0/6875), 
-                            (ConstantDistribution.new 1000*8)
-
-        flow_3_path = Path.new hosts[2], hosts[1]
-        flow_3_path.add_link link4
-        flow_3_path.add_link link5
-        @topology.add_flow "Flow3", 
-                            20, 
-                            flow_3_path, 
-                            (ExponentialDistribution.new 1.0/6875), 
-                            (ConstantDistribution.new 1000*8)                            
 
         @topology.topology_elements
     end  
