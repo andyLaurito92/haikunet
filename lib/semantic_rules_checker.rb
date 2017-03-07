@@ -4,6 +4,8 @@ require_relative 'utils/custom_file_utils.rb'
 
 class SemanticRulesChecker
     def check(context, topology)
+        validate_params context, topology
+
         @context = context
         @topology = topology
 
@@ -157,6 +159,11 @@ class SemanticRulesChecker
 
     def host_value_of(host_identifier, proerty)
         host_identifier.value.params.select{ |param| param.name == proerty }.first.value
+    end
+
+    def validate_params(context,topology)
+        raise ArgumentError, "A valid context was expected as first argument of SemanticRulesChecker#check method, #{context} was recieved instead." unless (context.class == Hash) && (context.key? 'identifiers') && (context.key? 'intents')
+        raise ArgumentError, "A topology was expected as second argument of SemanticRulesChecker#check method, #{topology} was recieved instead." unless topology.class == Topology
     end
 
     def raise_semantic_error(message)

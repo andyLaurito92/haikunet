@@ -41,8 +41,25 @@ describe NetworkProvider do
       NetworkProvider.new @file_name, @initial_topo_uri
     end
 
-    it "retrieves the expected initial topology" do
-      expect(false).to eq(true)
+    it "retrieves the expected initial topology" do #TODO: Improve the test
+      module NetworkTopology 
+        def get_topology 
+          "my_topo" 
+        end
+      end
+
+      my_topology_generator_mock = double
+      allow(my_topology_generator_mock).to receive(:generate)
+      allow_any_instance_of(NetworkProvider).to receive(:require)
+      allow(Topologygenerator).to receive(:new).and_return my_topology_generator_mock
+
+      expect_any_instance_of(NetworkProvider).to receive(:require).with("#{ENV['HOME']}/.haikunet/initial_topology/#{@file_name}/initial_network_topology.rb").once
+      expect(my_topology_generator_mock).to receive(:generate).once
+
+      my_network_provider = NetworkProvider.new @file_name, @initial_topo_uri
+      my_initial_topo = my_network_provider.initial_topology
+
+      expect(my_initial_topo).to eq('my_topo')
     end
   end
 
