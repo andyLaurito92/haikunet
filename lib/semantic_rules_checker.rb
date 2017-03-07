@@ -111,6 +111,13 @@ class SemanticRulesChecker
             hosts_in_topology.each do |host|
                 return host if host.mac == mac_value
             end
+            #If the mac of the identifier is not found, we check again for the ip
+            ips_value = host_value_of host_identifier, 'ipAddresses'
+            hosts_in_topology.each do |host|
+                return host if (host.ips == Array) && host.ips == ips_value
+                return host if ips_value.include? host.ips
+            end
+
             #If we are here, then it means that the host is not defined in the actual topology!. This means that
             #we have first to define it in the topology whith it's link.
             return define_host_identifier_in_topology host_identifier

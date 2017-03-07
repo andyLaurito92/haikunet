@@ -10,14 +10,14 @@ class NetworkProvider
             "output_directory" => "#{ENV['HOME']}/.haikunet/initial_topology/#{@file_name}",
             "uri_resource" => "#{uri_initial_topology}"
         })
-    end
 
-    def initial_topology
         @topology_generator.generate
 
         require "#{ENV['HOME']}/.haikunet/initial_topology/#{@file_name}/initial_network_topology.rb"
         extend NetworkTopology
+    end
 
+    def initial_topology
         get_topology
     end
 

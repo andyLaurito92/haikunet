@@ -40,10 +40,9 @@ module NetworkTopology
         router = @topology.add_router "of:0000000000000001"
         routers.push router
 
-        for i in 1..3  
-          host = @topology.add_host "Host#{i}", "10.0.0.#{i}"
-          hosts.push host     
-        end
+        hosts.push @topology.add_host "Host1", "10.0.0.1", "9A:4A:43:D4:36:45"
+        hosts.push @topology.add_host "Host2", "10.0.0.2", "72:D2:0D:24:C5:36"
+        hosts.push @topology.add_host "Host3", "10.0.0.3" "A4:C4:94:5F:7C:4C"
 
         #Links (starting from the flows that goes from top to bottom)    
         link1 = @topology.add_link "Link1", hosts[0], 0, routers[0], 0

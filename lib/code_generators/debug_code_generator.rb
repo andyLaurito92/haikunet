@@ -10,12 +10,15 @@ module DebugCodeGenerator
     def generate_output(file_name)
         @identifiers.each do |identifier|
             case identifier.value
-            when HaikunetHost
+            when HaikunetHost                
                 mac_value = host_value_of identifier, 'mac'
                 ips_value = host_value_of identifier, 'ipAddresses'
                 vlan_value = host_value_of identifier, 'vlan'
                 element_id_value = host_value_of identifier, 'elementId'
                 port_value = host_value_of identifier, 'port'
+                
+                # We are going to define that a host exist in the topology if the mac is already defined.
+                next if is_defined_in_topology mac_value, ips_value, vlan_value, element_id_value, port_value
                 my_host = @initial_topology.add_host "#{mac_value}/#{vlan_value}", ips_value, mac_value
 
                 switch = @initial_topology.get_element_by_id element_id_value
@@ -78,6 +81,16 @@ module DebugCodeGenerator
         macs.push value_from 'mac', resource.value.params
       end
       macs
+    end
+
+    def is_defined_in_topology(mac_value, ips_value, vlan_value, element_id_value, port_value)
+        res = false
+        host = (@initial_topology.elements_of_type Host).select { |host| host.mac == mac_value}.first 
+        if host
+            res = true
+            warn "The host with mac #{mac_value} has changed the ip, new ips are #{ips_value}, while the old ones were #{host.ips}" unless ips_value.include? host.ips
+        end
+        res
     end
 
     def find_path_between(src_mac, dst_mac)
