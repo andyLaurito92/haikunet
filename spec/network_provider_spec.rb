@@ -24,14 +24,26 @@ describe NetworkProvider do
     before :each do
       @file_name = double
       @initial_topo_uri = double
+      @my_topology_generator = double
+      allow(@my_topology_generator).to receive(:generate)
       allow(@file_name).to receive(:nil?).and_return false
       allow(@initial_topo_uri).to receive(:to_s).and_return '/valid/uri'
       allow(@file_name).to receive(:to_s).and_return 'file_pepito'
       allow(File).to receive(:exists?).and_return true
-      allow(Topologygenerator).to receive(:new)
+      allow(Topologygenerator).to receive(:new).and_return @my_topology_generator
+
+      module NetworkTopology 
+        def get_topology 
+          "my_topo" 
+        end
+      end
+
     end
 
     it "creates a valid NetworkProvider with CUSTOM as source" do
+      allow_any_instance_of(NetworkProvider).to receive(:require)
+      allow_any_instance_of(NetworkProvider).to receive(:extend).with(NetworkTopology)
+
       expect(Topologygenerator).to receive(:new).with({
           "source" => "CUSTOM",
           "directory_concrete_builders" => "/home/andylaurito/repos/haikunet/lib/haikunet_builders/initial_topology_builders",
@@ -42,12 +54,6 @@ describe NetworkProvider do
     end
 
     it "retrieves the expected initial topology" do #TODO: Improve the test
-      module NetworkTopology 
-        def get_topology 
-          "my_topo" 
-        end
-      end
-
       my_topology_generator_mock = double
       allow(my_topology_generator_mock).to receive(:generate)
       allow_any_instance_of(NetworkProvider).to receive(:require)
@@ -63,13 +69,16 @@ describe NetworkProvider do
     end
   end
 
-  context '#get_source' do #TODO: IMPROVE THIS METHOD, ONOS IS RETURNED WHEN AN URI CONTAINS ONOS AS STRING. OPENDAYLIGHT IS RETURN OTHERWISE. CUSTOM IS RETURNED IF NO URI IS RECIEVED
+  context '#get_source_from' do #TODO: IMPROVE THIS METHOD, ONOS IS RETURNED WHEN AN URI CONTAINS ONOS AS STRING. OPENDAYLIGHT IS RETURN OTHERWISE. CUSTOM IS RETURNED IF NO URI IS RECIEVED
     before :each do
       file_name = double
       initial_topo_uri = double
+      my_topology_generator = double
+      allow(my_topology_generator).to receive(:generate)
+      allow_any_instance_of(NetworkProvider).to receive(:require)
       allow(file_name).to receive(:nil?).and_return false
       allow(File).to receive(:exists?).and_return true
-      allow(Topologygenerator).to receive(:new)
+      allow(Topologygenerator).to receive(:new).and_return my_topology_generator
 
       @my_network_provider = NetworkProvider.new file_name, initial_topo_uri
     end

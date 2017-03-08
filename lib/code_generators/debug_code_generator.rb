@@ -54,7 +54,7 @@ module DebugCodeGenerator
         topology_generator.generate
 
         #Run the simulaton!
-        system "#{File.dirname(File.realpath(__FILE__))}/../../debug/bin/pdppt -pdif 'cd #{File.dirname(File.realpath(__FILE__))}/../../debug; ./model -tf 0.1' -x  \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/topology.pdm\""
+        system "#{File.dirname(File.realpath(__FILE__))}/../../debug/bin/pdppt -pdif 'cd #{File.dirname(File.realpath(__FILE__))}/../../debug; ./model -tf 1' -x  \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/topology.pdm\""
     end
 
     def host_value_of(host_identifier, property)
