@@ -8,7 +8,7 @@ MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 cd $MY_PATH/../output/
 
 # start scilab normaly with backdoor
-$MY_PATH/../../scilab-5.5.1/bin/scilab  -f $MY_PATH/loadBackDoor.sce
+/usr/bin/scilab  -f $MY_PATH/loadBackDoor.sce
 
 # return to previous directory
 cd $currentPath

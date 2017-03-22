@@ -1,6 +1,7 @@
 require "ipaddress"
 require 'set'
 require_relative 'utils/custom_file_utils.rb'
+require_relative 'code_generators/code_generator.rb'
 
 class SemanticRulesChecker
     def check(context, topology)
@@ -9,6 +10,12 @@ class SemanticRulesChecker
         @context = context
         @topology = topology
 
+        static_properties
+        
+        dynamic_properties
+    end
+
+    def static_properties
         hosts_are_well_defined
 
         flows_are_well_defined
@@ -18,12 +25,34 @@ class SemanticRulesChecker
         paths_for_flows_exists
     end
 
-    def hosts_are_well_defined
+    def dynamic_properties
+        # Right now, we are going to harcode in the simulator the topology model. TODO: Using the topology generated
+        # from the simulator_code_generator.generate_code, create the model to be used as parameter to the simultaor
+        # (The model creation in a normal process would be: 1)Design the topology using the simultaor; 
+        # 2) Press the run buttom in PowerDEVS. This is what generates the model, that now is harcoded (meaning that
+        # we are always using the same network).
+        file_name = "simulation_debug_#{Time.now.getutc}"
 
+        simulator_code_generator = CodeGenerator.new
+        simulator_code_generator.generate_code @context, 'DEBUG', file_name, @topology        
+        
+        #Run Scilab!
+        scilab_process = fork do
+          `#{File.dirname(File.realpath(__FILE__))}/../debug/bin/startScilab.sh`
+        end
+
+        sleep 10
+
+        #Run the simulaton!
+        system "#{File.dirname(File.realpath(__FILE__))}/../debug/bin/pdppt -pdif 'cd #{File.dirname(File.realpath(__FILE__))}/../../debug; ./model -tf 10' -x  \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/topology.pdm\""
+
+        Process.detach(scilab_process)
+    end
+
+    def hosts_are_well_defined
     end
 
     def flows_are_well_defined
-
     end
 
     def values_defined_in_flows_are_defined_in_topology

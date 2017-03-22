@@ -2,7 +2,8 @@ require 'commander'
 require 'uri'
 
 class CommandLineArguments
-    DESTINIES_ALLOWED = ['OPENDAYLIGHT', 'ONOS', 'DEBUG']
+
+    DESTINIES_ALLOWED = ['OPENDAYLIGHT', 'ONOS']
     HAIKUNET_FILE_EXTENSION = '.hk'
 
     include Commander::Methods
@@ -12,7 +13,7 @@ class CommandLineArguments
     def run
         program :name, 'Haikunet interpreter'
         program :version, '0.0.1'
-        program :description, 'The interpreter for Haikunet programming language. Haikunet is a network intents programming language, which is focused in making programmer\'s life easier.'
+        program :description, 'The interpreter for Haikunet programming language. Haikunet is a network intents programming language designed for the SDN architecture.'
         program :help, 'Author', 'Andrés Laurito'
 
         my_command_line_argument = self 
@@ -22,11 +23,11 @@ class CommandLineArguments
           c.summary = 'Specify the file name of the haikunet program'
           c.description = 'Specify the file name of the haikunet program'
           c.option '-n', '--name NAME', String, 'Specify the file name'
-          c.option '-d', '--destiny NAME', String, 'Specify the current destiny for the intent. Haikunet currently support ONOS, OPENDAYLIGHT and DEBUG modes'
+          c.option '-d', '--destiny NAME', String, 'Specify the current destiny for the intent. Haikunet currently support ONOS and OPENDAYLIGHT'
           c.option '-u', '--uriInitialTopo NAME', String, 'Specify the uri from where to get the initial topology. The uri can be either a controller\'s url, for example http://127.0.0.1:8181/onos/v1/, or a network topology file\'s path (the network topologie\'s file has to has the structure specified by the topologyGenerator gem).'
           c.example 'Interpretating a file called hellohaikunet.hk heading the output to ONOS and getting the initial topology from ONOS', 'haikunet progran -n hellohaikunet.hk -d ONOS -u http://127.0.0.1:8181/onos/v1/'
-          c.example 'Interpretating the same file hellohaikunet.hk heading the output to DEBUG and getting the initial topology from ONOS', 'haikunet progran -n hellohaikunet.hk -d DEBUG -u http://127.0.0.1:8181/onos/v1/'
-          c.example 'Interpretating the file hellohaikunet.hk heading the output to DEBUG and getting the initial topology from a file', 'haikunet progran -n hellohaikunet.hk -d DEBUG -u network_topologies_examples/tree_topology.rb'
+          c.example 'Interpretating the same file hellohaikunet.hk heading the output to OPENDAYLIGHT and getting the initial topology from ONOS', 'haikunet progran -n hellohaikunet.hk -d OPENDAYLIGHT -u http://127.0.0.1:8181/onos/v1/'
+          c.example 'Interpretating the file hellohaikunet.hk heading the output to ONOS and getting the initial topology from a file', 'haikunet progran -n hellohaikunet.hk -d ONOS -u network_topologies_examples/tree_topology.rb'
           c.action do |args, options|
             @file_name = options.name
             @destiny_name = options.destiny
