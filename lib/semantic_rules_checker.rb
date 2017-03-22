@@ -36,15 +36,20 @@ class SemanticRulesChecker
         simulator_code_generator = CodeGenerator.new
         simulator_code_generator.generate_code @context, 'DEBUG', file_name, @topology        
         
+        #Create the model executable
+        system "#{File.dirname(File.realpath(__FILE__))}/../debug/bin/pdppt -pdif -x  \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/topology.pdm\""
+
+        sleep 1
+
         #Run Scilab!
         scilab_process = fork do
           `#{File.dirname(File.realpath(__FILE__))}/../debug/bin/startScilab.sh`
         end
 
         sleep 10
-
+        
         #Run the simulaton!
-        system "#{File.dirname(File.realpath(__FILE__))}/../debug/bin/pdppt -pdif 'cd #{File.dirname(File.realpath(__FILE__))}/../../debug; ./model -tf 10' -x  \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/topology.pdm\""
+        system "cd #{File.dirname(File.realpath(__FILE__))}/../debug/output; ./model -tf 10"
 
         Process.detach(scilab_process)
     end
