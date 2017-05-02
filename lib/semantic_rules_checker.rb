@@ -31,25 +31,26 @@ class SemanticRulesChecker
         # (The model creation in a normal process would be: 1)Design the topology using the simultaor; 
         # 2) Press the run buttom in PowerDEVS. This is what generates the model, that now is harcoded (meaning that
         # we are always using the same network).
-        file_name = "simulation_debug_#{Time.now.getutc}"
+        file_name = "simulation_debug_#{Time.now.getutc}".gsub! ' ', '_'
 
         simulator_code_generator = CodeGenerator.new
         simulator_code_generator.generate_code @context, 'DEBUG', file_name, @topology        
         
+        #We copy the FlowDefinitions.cpp file to debug/atomics/PhaseI needed before compilation.   
+        system "cp \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/FlowDefinitions.cpp\" #{File.dirname(File.realpath(__FILE__))}/../debug/atomics/PhaseI"
+
         #Create the model executable
         system "#{File.dirname(File.realpath(__FILE__))}/../debug/bin/pdppt -pdif -x  \"#{ENV['HOME']}/.haikunet/debug/#{file_name}/topology.pdm\""
-
-        sleep 1
 
         #Run Scilab!
         scilab_process = fork do
           `#{File.dirname(File.realpath(__FILE__))}/../debug/bin/startScilab.sh`
         end
 
-        sleep 10
+        sleep 40
         
         #Run the simulaton!
-        system "cd #{File.dirname(File.realpath(__FILE__))}/../debug/output; ./model -tf 10"
+        system "cd #{File.dirname(File.realpath(__FILE__))}/../debug/output; ./RunNSimulations.sh -n 1 -f 0.1"
 
         Process.detach(scilab_process)
     end

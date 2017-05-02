@@ -1,0 +1,21 @@
+#### Parameters for the simulator  ####
+#tf = 1      # set default final time (can be overriden by command line -tf)
+#ti = 10     # Set initial time to t (double format).
+#i = 0       # Run interactive shell.
+#b = 0       # Stop simulation after n steps in the same time (to detect illegitimate models).
+#d = 0       # Debug simulation.
+#rt = 0      # Synchronize events with real time.
+
+ExperimentNumber = 0 # RunNumber is used for scanning parameters defined in ParameterValues. The value to be used is ParameterValues[ExperimentNumber]. It can be overriden by a commandLine parameter.
+
+# Backends
+parameter_reading_backend=Scilab  # (CmdLine or Scilab) - Backend to be used for reading parameters in atomic models
+variable_logging_backend=Scilab  # (OpenTsdb or Scilab) - Backend to be used for logging variables in atomic models
+openTSDB-host=localhost           # (string) - name of the OpenTSDB host. Server host name=pc-atd-cc-01
+openTSDB-port=4242                 # (string) - OpenTSDB port to be used
+
+# General
+StochasticSimu = 0 # 1=YES (use STEVS), 0=NO (use means as constant values).
+SimulationName = testingMerge
+
+ParameterValues = { 1 } #

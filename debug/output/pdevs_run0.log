@@ -1,0 +1,39 @@
+[INIT] ExperimenetTracker_init: simulation ID : 1493745093 
+[INIT] ExperimenetTracker_init: VariableName for simu SetID : SimulationName 
+[INIT] ExperimenetTracker: Variable Name for Simulation Run : ExperimentNumber 
+[INIT] ExperimenetTracker_init: VariableName for parameters values : ParameterValues 
+[INIT] ExperimenetTracker_init: VariableName for parameters names : ParameterNames 
+[INIT] ScilabParameterSweeper: There are 1 parameters defined with 1 values each. 
+[INIT] ScilabParameterSweeper: CURRENT simulation will use the following parameters: 
+          flow2.periodDistribution_mu: 1:
+---------------------- STARTING simulation Experiment number 0 (0-based) of a total of 1 Experiments (last Experiment). Wall-clock time: 20170502_141133  --------------------- 
+Configuration STDEVS set to STDEVS::StDevsReproducibleGenerationInstance 
+STDEVS was Created 
+time 1493745093 
+STDEVS randseed received 0 
+creating STDEVS instance that will create random values which will be the same in every simulation (seed=0) 
+STDEVS randseed calculated 0 
+[INIT] Host2.GeneratorApplication: There are 0 flows defined for this server. It will never generate anything.  
+[INIT] Host3.GeneratorApplication: There are 0 flows defined for this server. It will never generate anything.  
+[INIT] FinalizationCommands_init: initSimulationCommandName : /home/andylaurito/.haikunet/debug/simulation_debug_2017-05-02_17:10:44_UTC/Scilab/firstSimulation.sce 
+[INIT] FinalizationCommands_init: eachSimulationCommandName : /home/andylaurito/.haikunet/debug/simulation_debug_2017-05-02_17:10:44_UTC/Scilab/eachSimulation.sce 
+[INIT] FinalizationCommands_init: lastSimulationCommandName : /home/andylaurito/.haikunet/debug/simulation_debug_2017-05-02_17:10:44_UTC/Scilab/lastSimulation.sce 
+
+[initSimulationCommandName] executing '/home/andylaurito/.haikunet/debug/simulation_debug_2017-05-02_17:10:44_UTC/Scilab/firstSimulation.sce' command ----------
+---------------------- Finished initializing all models, now STARTING SIMULATION. Initialization TOTAL time: 12593 (ms) ----------------------
+NetworkPacket::getProtocol: failed to find protocolID=400[0.000000] Router1.Routing_ext: received packet #1 without routing protocol. Discarding (this is normal ONLY at the beginning of simulation as a fake packet is sent by links) 
+ NetworkPacket::getProtocol: failed to find protocolID=400[0.000000] Router1.Routing_ext: received packet #2 without routing protocol. Discarding (this is normal ONLY at the beginning of simulation as a fake packet is sent by links) 
+ NetworkPacket::getProtocol: failed to find protocolID=400[0.000000] Router1.Routing_ext: received packet #3 without routing protocol. Discarding (this is normal ONLY at the beginning of simulation as a fake packet is sent by links) 
+ ---------------------- Finished Simulation, now EXITING all models. Simulation time (not including init): 169 (ms) ----------------------
+[ScilabParameterSweeper] executing 'ExperimentNumber = ExperimentNumber + 1;' command ----------
+[multipleSimulationCommands]: Logging times for Scilab: 
+ [multipleSimulationCommands]: Total logged models :  0  
+ [multipleSimulationCommands]: Total logged variables :  0  
+ [multipleSimulationCommands]: Total flushing time:  0 (ms) 
+ [multipleSimulationCommands]: Total writing time:  0 (us) 
+ [multipleSimulationCommands]: Total metric points (not including T):  0 
+ [multipleSimulationCommands]: ---------------- [FINISH] Finished Simulation Run 0. TOTAL execution time: 12762 (ms) . Wall-clock time: 20170502_141145
+
+[runAfterEachSimulation] executing '/home/andylaurito/.haikunet/debug/simulation_debug_2017-05-02_17:10:44_UTC/Scilab/eachSimulation.sce' command ----------
+
+[runAfterAllSimulations] executing '/home/andylaurito/.haikunet/debug/simulation_debug_2017-05-02_17:10:44_UTC/Scilab/lastSimulation.sce' command----------

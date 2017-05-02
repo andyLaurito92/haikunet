@@ -9,5 +9,5 @@ In file included from ../atomics/PhaseI/Vector_NetworkQueueWithSizeOutput.h:14:0
 ../atomics/vector/VectorialModel.h:96:11: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
      if (i < scalarParameters[j].size()) {
            ^
-../build/objs/ScilabLogger.o: In function `ScilabLogger::ScilabLogger(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool)':
-ScilabLogger.cpp:(.text+0x2d5): warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+../build/objs/ScilabLogger.o: En la función `ScilabLogger::ScilabLogger(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool)':
+ScilabLogger.cpp:(.text+0x2d5): aviso: the use of `tmpnam' is dangerous, better use `mkstemp'

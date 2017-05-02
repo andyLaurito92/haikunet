@@ -13,7 +13,7 @@ http://asciiflow.com
          |   +-----------+        |
          |   |           |        |
          +---+           +--------+
-             |of:0000000000000001   |
+             | Router1   |
              |           |
              +------+----+
                     |
@@ -37,7 +37,7 @@ module NetworkTopology
         routers = []
         hosts = []
 
-        router = @topology.add_router "of:0000000000000001"
+        router = @topology.add_router "Router1"
         routers.push router
 
         hosts.push @topology.add_host "Host1", "10.0.0.1", "9A:4A:43:D4:36:45"

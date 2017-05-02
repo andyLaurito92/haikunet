@@ -8,6 +8,7 @@ module DebugCodeGenerator
     FLOW_DEFAULT_GENERATION_SIZE = NormalDistribution.new 4.0*K, 1.0*K  # (in bytes)
 
     def generate_output(file_name)
+        @id_currently_flow = 0
         @identifiers.each do |identifier|
             case identifier.value
             when HaikunetHost                
@@ -33,11 +34,12 @@ module DebugCodeGenerator
                 flow_params = get_flow_params identifier
                 flow_params['src'].each do |src_mac|
                   flow_params['dst'].each do |dst_mac|
-                    @initial_topology.add_flow  "Flow#{src_mac}_#{dst_mac}", 
+                    @initial_topology.add_flow  "Flow#{@id_currently_flow}", 
                                         FLOW_DEFAULT_PRIORITY, 
                                         [(find_path_between src_mac, dst_mac)], 
                                         FLOW_DEFAULT_GENERATION_PERIOD, 
                                         FLOW_DEFAULT_GENERATION_SIZE
+                    @id_currently_flow += 1
                   end
                 end
             when HaikunetIntent

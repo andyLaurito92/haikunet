@@ -1,0 +1,27 @@
+exec('../examples/common/Scilab/functions.sce', 0);
+exec('../examples/common/Scilab/constants.sce', 0);
+exec('../examples/common/Scilab/metrics.sce', 0);
+
+if ~exists('ExperimentNumber') then
+ ExperimentNumber=0;
+end 
+if exists('ParameterValues') & ExperimentNumber >= length(ParameterValues)  then
+
+	ExperimentNumber=0;
+end
+printf('Starting Experiment %i ... \n', ExperimentNumber);
+
+// Scilab
+warning('off') // Turn off warnings
+stacksize('max') // increase scilab memory
+
+// General
+StochasticSimu = 1;     // 1=YES (use STDEVS), 0=NO (use means as constant values).
+ReproducibleSimu = REPRODUCIBLE_SEED;   // When using STDEVS, 1="Uses always the same random numbers (Reproducible) 0="Uses unique random numbers (generates a new seed). Any other value will be used as seed" 
+SimulationName = "SimulationName";
+
+// For sweeping parameters: ./RunNSimulations.sh -n <sizeParameterValues> -f <finalTime>
+ParameterNames = ["variable.name"] ; // this must be changed in ScilabParameterSweeper::UpdateParameters
+ParameterValues = [1];
+
+
