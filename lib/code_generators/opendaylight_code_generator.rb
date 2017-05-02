@@ -70,6 +70,9 @@ module OnosCodeGenerator
 
 curl -v --user "admin":"admin" -H "Accept: application/json" -H "Contennt-type: application/json" -X GET http://localhost:8181/restconf/config/intent:intents/intent
 
+curl -v --user "admin:admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/intent:intents/intent/intent1 -d '{"intent:intent" : {"intent:id": "intent1", "intent:actions" :[{"order":2, "allow": {}} ], "intent:subjects" : [{"order":1, "end-point-group": {"name":"10.0.0.1"}}, {"order":2, "end-point-group": {"name":"10.0.0.2"}}] }}'
+
+curl -v --user "admin:admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/intent:intents/intent/b9a13232-525e-4d8c-be21-cd65e3436034 -d '{"intent:intent" : {"intent:id": "b9a13232-525e-4d8c-be21-cd65e3436034", "intent:actions" :[{"order":2, "allow": {}} ], "intent:subjects" : [{"order":1, "end-point-group": {"name":"10.0.0.1"}}, {"order":2, "end-point-group": {"name":"10.0.0.2"}}] }}'
 
 curl -v --user "admin":"admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT 
 
