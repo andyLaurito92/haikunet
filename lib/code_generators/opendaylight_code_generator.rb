@@ -1,7 +1,41 @@
 require 'typhoeus'
 require_relative '../errors/onos_code_generator_error.rb'
 
-module OnosCodeGenerator
+=begin
+
+This OpenDayLightCodeGenerator works for Beryllium version. In order to make it work, the OpenDayLight controller
+must be running with the following features:
+
+1. feature:install odl-nic-core-mdsal
+2. feature:install odl-nic-console
+3. feature:install odl-nic-listeners
+4. feature:install odl-nic-intent-statemachine
+5. feature:install odl-nic-graph
+6. feature:install odl-nic-renderer-vtn
+7. feature:install odl-netconf-connector-ssh
+
+Copying and pasting each line in opendaylight local version should do the trick. We are assuming that both user 
+and password are admin.
+
+This is the curl that works which is going to be replicated in this generator:
+
+curl -v --user "admin":"admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT 
+http://localhost:8181/restconf/config/intent:intents/intent/b9a13232-525e-4d8c-be21-cd65e3436033 -d 
+'{ "intent:intent" : 
+    { 
+        "intent:id": "b9a13232-525e-4d8c-be21-cd65e3436033", 
+        "intent:actions" : [ { "order" : 2, "allow" : {} } ], 
+        "intent:subjects" : [ 
+            { "order":1 , "end-point-group" : {"name":"10.0.0.2"} }, 
+            { "order":2 , "end-point-group" : {"name":"10.0.0.3"}} 
+        ] 
+    } 
+}' 
+
+
+=end
+
+module OpenDayLightCodeGenerator
     include CustomFileUtils
     
     def generate_output(file_name)
@@ -11,19 +45,9 @@ module OnosCodeGenerator
         @identifiers.each do |identifier|
             case identifier.value
             when HaikunetHost
-                host_params = get_host_params identifier
-                next if is_defined_in_topology host_params
-                json = "{
-                    \"mac\" : \"#{host_params['mac']}\", \n
-                    \"vlan\" : \"#{host_params['vlan']}\", \n
-                    \"ipAddresses\" : #{host_params['ips']}, \n
-                    \"location\" : {
-                        \"elementId\" : \"#{host_params['elementId']}\", \n
-                        \"port\" : \"#{host_params['port']}\"
-                    }
-                }\n"
-                requests.push({ "end_point" => "hosts", "message" => json })
-                code += json
+                if !is_defined_in_topology(host_params)
+                    raise OpendaylightCodeGeneratorError, "Creating a new Host is not supported by OpenDayLight Code Generator. TODO: Implement this feature."
+                end
             when HaikunetFlow
                 src_endpoint = ''
                 dst_endpoint = ''
@@ -38,11 +62,13 @@ module OnosCodeGenerator
                 end
                 dst_endpoint.chomp
 
+
+                intent_id = "b9a1323#{Random.new.rand 9}-525e-4d#{Random.new.rand 9}c-be21-cd65e343603#{Random.new.rand 9}"
                 json = "
                     {
                     \"intent:intent\":
                         {
-                            \"intent:id\":\"b9a13232-525e-4d8c-be21-cd65e3436034\",
+                            \"intent:id\":\"#{intent_id}\",
                             \"intent:action\": [ { \"order\" : 2, \"allow\" : {} } ],
                             \"intent:subjects\" : [ { \"order\":1 , \"end-point-group\" : #{src_endpoint} }, { \"order\":2 , \"end-point-group\" : #{dst_endpoint} } ]  
                         }
@@ -65,30 +91,6 @@ module OnosCodeGenerator
         write_file  "#{file_name[0,file_name.length-3]}_requests",
                     code
     end
-
-=begin
-
-curl -v --user "admin":"admin" -H "Accept: application/json" -H "Contennt-type: application/json" -X GET http://localhost:8181/restconf/config/intent:intents/intent
-
-curl -v --user "admin:admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/intent:intents/intent/intent1 -d '{"intent:intent" : {"intent:id": "intent1", "intent:actions" :[{"order":2, "allow": {}} ], "intent:subjects" : [{"order":1, "end-point-group": {"name":"10.0.0.1"}}, {"order":2, "end-point-group": {"name":"10.0.0.2"}}] }}'
-
-curl -v --user "admin:admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT http://localhost:8181/restconf/config/intent:intents/intent/b9a13232-525e-4d8c-be21-cd65e3436034 -d '{"intent:intent" : {"intent:id": "b9a13232-525e-4d8c-be21-cd65e3436034", "intent:actions" :[{"order":2, "allow": {}} ], "intent:subjects" : [{"order":1, "end-point-group": {"name":"10.0.0.1"}}, {"order":2, "end-point-group": {"name":"10.0.0.2"}}] }}'
-
-curl -v --user "admin":"admin" -H "Accept: application/json" -H "Content-type: application/json" -X PUT 
-
-http://localhost:8181/restconf/config/intent:intents/intent/b9a13232-525e-4d8c-be21-cd65e3436034 -d '
-{ 
-  "intent:intent" : 
-    { "intent:id": 
-      "b9a13232-525e-4d8c-be21-cd65e3436034", 
-        "intent:actions" : [ { "order" : 2, "allow" : {} } ], 
-        "intent:subjects" : [ { "order":1 , "end-point-group" : {"name":"10.0.0.1"} }, { "order":2 , "end-point-group" : {"name":"10.0.0.2"}} ] 
-    } 
-}'
-
-=end
-
-
 
     def value_from(value_name, array)
         elem = array.select { |elem| elem.name == value_name }.first
@@ -128,8 +130,9 @@ http://localhost:8181/restconf/config/intent:intents/intent/b9a13232-525e-4d8c-b
     end
 
     def is_defined_in_topology(host_params)
-        uri_resource = 'http://127.0.0.1:8181/onos/v1'
-        response = Typhoeus.get "#{uri_resource}/hosts/#{CGI.escape(host_params['mac'])}/#{host_params['vlan']}", userpwd:"onos:rocks"
-        response.code == 200
+        return false
+        #uri_resource = 'http://127.0.0.1:8181/onos/v1'
+        #response = Typhoeus.get "#{uri_resource}/hosts/#{CGI.escape(host_params['mac'])}/#{host_params['vlan']}", userpwd:"onos:rocks"
+        #response.code == 200
     end
 end
