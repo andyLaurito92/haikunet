@@ -4,6 +4,7 @@ class NetworkProvider
 
         @file_name = file_name
         source_name = get_source_from uri_initial_topology
+        uri_initial_topology = "http://localhost:8080" if source_name == "OPENDAYLIGHT"
         @topology_generator = Topologygenerator.new({
             "source" => source_name,
             "directory_concrete_builders" => "#{File.dirname(File.realpath(__FILE__))}/haikunet_builders/initial_topology_builders",
@@ -23,12 +24,11 @@ class NetworkProvider
 
     "TODO: IMPROVE THIS
     In this function we check if either an URI or a PATH is recieved. In the second case, CUSTOM is returned.
-    In the first case, it has to be returned either ONOS or OPENDAYLIGHT, since we just have the URI, we 
-    check in it if the string onos appears in the URI."
+    In the first case, it has to be returned either ONOS or OPENDAYLIGHT."
     def get_source_from(uri_initial_topology)
         if uri_initial_topology =~ /\A#{URI::regexp(['http', 'https'])}\z/ 
             return "ONOS" if uri_initial_topology.include? "onos"
-            return "OPENDAYLIGHT"
+            return "OPENDAYLIGHT" if uri_initial_topology.include? "network-topology"
         else
             return "CUSTOM"
         end

@@ -1,3 +1,5 @@
+require_relative '../errors/debug_code_generator_error.rb'
+
 module DebugCodeGenerator
     require_relative "#{File.dirname(File.realpath(__FILE__))}/../utils/dijkstra_algorithm.rb"
 
@@ -14,12 +16,15 @@ module DebugCodeGenerator
             when HaikunetHost                
                 mac_value = host_value_of identifier, 'mac'
                 ips_value = host_value_of identifier, 'ipAddresses'
+                
+                # We are going to define that a host exist in the topology if the mac is already defined.
+                next if is_defined_in_topology mac_value, ips_value
+
+                # If we are here, that means that the host does not exist in the topology. This means that
+                # we need some extra info to define it. 
                 vlan_value = host_value_of identifier, 'vlan'
                 element_id_value = host_value_of identifier, 'elementId'
                 port_value = host_value_of identifier, 'port'
-                
-                # We are going to define that a host exist in the topology if the mac is already defined.
-                next if is_defined_in_topology mac_value, ips_value, vlan_value, element_id_value, port_value
                 my_host = @initial_topology.add_host "#{mac_value}/#{vlan_value}", ips_value, mac_value
 
                 switch = @initial_topology.get_element_by_id element_id_value
@@ -57,7 +62,9 @@ module DebugCodeGenerator
     end
 
     def host_value_of(host_identifier, property)
-        host_identifier.value.params.select{ |identifier| identifier.name == property }.first.value
+        identifier = host_identifier.value.params.select{ |identifier| identifier.name == property }.first
+        raise DebugCodeGeneratorError, "Property #{property} was not found in host identifier and is needed to create the simulation." if identifier.nil?
+        identifier.value
     end
 
     def get_flow_params(flow_identifier)
@@ -82,7 +89,7 @@ module DebugCodeGenerator
       macs
     end
 
-    def is_defined_in_topology(mac_value, ips_value, vlan_value, element_id_value, port_value)
+    def is_defined_in_topology(mac_value, ips_value)
         res = false
         host = (@initial_topology.elements_of_type Host).select { |host| host.mac == mac_value}.first 
         if host

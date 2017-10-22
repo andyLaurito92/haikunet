@@ -1,6 +1,6 @@
-one_host := Host(mac="00:00:00:00:00:01", vlan="-1", ipAddresses=["10.0.0.1"], elementId="of:0000000000000001", port="0")
+one_host := Host(mac="00:00:00:00:00:01", vlan="-1", ipAddresses=["10.0.0.1"])
 
-second_host := Host(mac="00:00:00:00:00:02", vlan="-1", ipAddresses=["10.0.0.2"], elementId="of:0000000000000001", port="2")
+second_host := Host(mac="00:00:00:00:00:02", vlan="-1", ipAddresses=["10.0.0.2"])
 
 my_flow := Flow (src=one_host, dst=second_host, priority="55")
 

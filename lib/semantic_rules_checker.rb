@@ -10,12 +10,12 @@ class SemanticRulesChecker
         @context = context
         @topology = topology
 
-        static_properties
+        synchronous_properties
         
-        dynamic_properties
+        asynchronous_properties
     end
 
-    def static_properties
+    def synchronous_properties
         hosts_are_well_defined
 
         flows_are_well_defined
@@ -25,7 +25,7 @@ class SemanticRulesChecker
         paths_for_flows_exists
     end
 
-    def dynamic_properties
+    def asynchronous_properties
         # Right now, we are going to harcode in the simulator the topology model. TODO: Using the topology generated
         # from the simulator_code_generator.generate_code, create the model to be used as parameter to the simultaor
         # (The model creation in a normal process would be: 1)Design the topology using the simultaor; 
@@ -199,8 +199,8 @@ class SemanticRulesChecker
         my_host
     end
 
-    def host_value_of(host_identifier, proerty)
-        host_identifier.value.params.select{ |param| param.name == proerty }.first.value
+    def host_value_of(host_identifier, property)
+        host_identifier.value.params.select{ |param| param.name == property }.first.value
     end
 
     def validate_params(context,topology)

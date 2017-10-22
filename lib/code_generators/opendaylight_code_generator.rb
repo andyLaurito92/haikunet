@@ -1,5 +1,5 @@
 require 'typhoeus'
-require_relative '../errors/onos_code_generator_error.rb'
+require_relative '../errors/opendaylight_code_generator_error.rb'
 
 =begin
 
@@ -13,6 +13,7 @@ must be running with the following features:
 5. feature:install odl-nic-graph
 6. feature:install odl-nic-renderer-vtn
 7. feature:install odl-netconf-connector-ssh
+8. feature:install odl-l2switch-switch-ui
 
 Copying and pasting each line in opendaylight local version should do the trick. We are assuming that both user 
 and password are admin.
@@ -35,7 +36,7 @@ http://localhost:8181/restconf/config/intent:intents/intent/b9a13232-525e-4d8c-b
 
 =end
 
-module OpenDayLightCodeGenerator
+module OpendaylightCodeGenerator
     include CustomFileUtils
     
     def generate_output(file_name)
@@ -45,7 +46,7 @@ module OpenDayLightCodeGenerator
         @identifiers.each do |identifier|
             case identifier.value
             when HaikunetHost
-                if !is_defined_in_topology(host_params)
+                if !is_defined_in_topology identifier.value
                     raise OpendaylightCodeGeneratorError, "Creating a new Host is not supported by OpenDayLight Code Generator. TODO: Implement this feature."
                 end
             when HaikunetFlow
@@ -53,28 +54,29 @@ module OpenDayLightCodeGenerator
                 dst_endpoint = ''
                 flow_params = get_flow_params identifier
                 flow_params['src'].each do |src_mac|
-                    src_endpoint += "{\"name\":\"#{src_mac}\"},"
+                    src_endpoint += "{\"name\":\"#{src_mac}\"}"
                 end
                 src_endpoint.chomp
 
                 flow_params['dst'].each do |dst_mac|
-                    dst_endpoint += "{\"name\":\"#{dst_mac}\"},"
+                    dst_endpoint += "{\"name\":\"#{dst_mac}\"}"
                 end
                 dst_endpoint.chomp
 
-
                 intent_id = "b9a1323#{Random.new.rand 9}-525e-4d#{Random.new.rand 9}c-be21-cd65e343603#{Random.new.rand 9}"
                 json = "
-                    {
-                    \"intent:intent\":
+                    { \"intent:intent\":
                         {
                             \"intent:id\":\"#{intent_id}\",
-                            \"intent:action\": [ { \"order\" : 2, \"allow\" : {} } ],
-                            \"intent:subjects\" : [ { \"order\":1 , \"end-point-group\" : #{src_endpoint} }, { \"order\":2 , \"end-point-group\" : #{dst_endpoint} } ]  
+                            \"intent:actions\": [ { \"order\" : 2, \"allow\" : {} } ],
+                            \"intent:subjects\" : [ 
+                                { \"order\":1 , \"end-point-group\" : #{src_endpoint} }, 
+                                { \"order\":2 , \"end-point-group\" : #{dst_endpoint} } 
+                            ]  
                         }
                     } 
                     "
-                requests.push({ "end_point" => "b9a13232-525e-4d8c-be21-cd65e3436034", "message" => json })
+                requests.push({ "end_point" => "#{intent_id}", "message" => json })
                 code += json
             end
         end
@@ -92,21 +94,6 @@ module OpenDayLightCodeGenerator
                     code
     end
 
-    def value_from(value_name, array)
-        elem = array.select { |elem| elem.name == value_name }.first
-        elem.nil? ? elem : elem.value
-    end
-
-    def get_host_params(host_identifier)
-        mac = value_from 'mac', host_identifier.value.params
-        vlan = value_from 'vlan', host_identifier.value.params
-        ips = value_from 'ipAddresses', host_identifier.value.params
-        elementId = value_from 'elementId', host_identifier.value.params
-        port = value_from 'port', host_identifier.value.params
-
-        {'mac' => mac, 'vlan' => vlan || -1, 'ips' => ips || '[]', 'elementId' => elementId || '', 'port' => port || ''}
-    end
-
     def get_flow_params(flow_identifier)
         src = value_from 'src', flow_identifier.value.params
         src_mac = get_macs_from src
@@ -115,6 +102,11 @@ module OpenDayLightCodeGenerator
         priority = value_from 'priority', flow_identifier.value.params
 
         {'src' => src_mac, 'dst' => dst_mac, 'priority' => priority}
+    end
+
+    def value_from(value_name, array)
+        elem = array.select { |elem| elem.name == value_name }.first
+        elem.nil? ? elem : elem.value
     end
 
     def get_macs_from(resource)
@@ -129,10 +121,7 @@ module OpenDayLightCodeGenerator
       macs
     end
 
-    def is_defined_in_topology(host_params)
-        return false
-        #uri_resource = 'http://127.0.0.1:8181/onos/v1'
-        #response = Typhoeus.get "#{uri_resource}/hosts/#{CGI.escape(host_params['mac'])}/#{host_params['vlan']}", userpwd:"onos:rocks"
-        #response.code == 200
+    def is_defined_in_topology(host_identifier)
+        return @initial_topology.elements_of_type(Host).select{ |host| host.mac == host_identifier.params.first.value }.length > 0
     end
 end
