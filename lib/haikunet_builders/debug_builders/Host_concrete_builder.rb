@@ -5,7 +5,7 @@ module HostConcreteBuilder
       pdm_output = "        Coupled
             {
             Type = Coordinator
-            Name = #{id}
+            Name = #{generate_id_from mac}
             Ports = #{@in_elements.size}; #{@out_elements.size}
             Description = Coupled DEVS model
             Graphic
@@ -25,8 +25,8 @@ module HostConcreteBuilder
                 }
             }
       "
-      scilab_host_output = "\n"     
-      scilab_host_output += "#{id}.egressPort.queueCapacity = #{queue_capacity};"
+      scilab_host_output = "\n"
+      scilab_host_output += "#{generate_id_from mac}.egressPort.queueCapacity = #{queue_capacity};"
       {'scilab'=>scilab_host_output, 'pdm'=>pdm_output}
     end
     
@@ -235,7 +235,7 @@ module HostConcreteBuilder
                                         }
                                     Parameters
                                         {
-                                        MaxCapacity = Str; #{id}.egressPort.queueCapacity ; Queue Capacity in Bytes. (Use -1 for INF capacity)
+                                        MaxCapacity = Str; #{generate_id_from mac}.egressPort.queueCapacity ; Queue Capacity in Bytes. (Use -1 for INF capacity)
                                         ForcedPeriod = Str; -1 ; Force minimum period to transition. Use -1 for INF
                                         }
                                     }
@@ -255,8 +255,8 @@ module HostConcreteBuilder
                                         }
                                     Parameters
                                         {
-                                        link.capacity = Str; #{id}.egressPort#{i}.link.capacity ; Signal Index
-                                        link.delay = Str; #{id}.egressPort#{i}.link.delay ; 
+                                        link.capacity = Str; #{generate_id_from mac}.egressPort#{i}.link.capacity ; Signal Index
+                                        link.delay = Str; #{generate_id_from mac}.egressPort#{i}.link.delay ; 
                                         }
                                     }
                                 Point
@@ -305,7 +305,12 @@ module HostConcreteBuilder
     end 
     pdm_generator_application
   end  
-    
+  
+
+  def generate_id_from(mac)
+    mac.gsub! ':',''
+    'Host'+mac
+  end  
     
   def receivingApplication
       # atomic model for receiving application 
