@@ -14,7 +14,7 @@ GEM
     ffi (1.9.18)
     highline (1.7.8)
     ipaddress (0.8.3)
-    json (2.0.3)
+    json (2.5.1)
     numerizer (0.1.1)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
